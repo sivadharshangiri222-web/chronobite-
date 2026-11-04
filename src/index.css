@@ -1,0 +1,188 @@
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 18% 7%;        /* #0F1117 deep dark background */
+    --foreground: 210 20% 98%;       /* Crisp white/light slate text */
+    
+    --card: 222 16% 11%;             /* #161922 dark card surface */
+    --card-foreground: 210 20% 98%;
+    --card-subtle: 222 16% 14%;      /* Slightly elevated surface */
+
+    --popover: 222 16% 11%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 21 100% 50%;          /* #FF5200 Vibrant warm orange / Swiggy signature */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 21 100% 45%;
+
+    --secondary: 220 14% 18%;        /* Slate accent */
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 220 14% 16%;
+    --muted-foreground: 217 10% 64%;
+
+    --accent: 21 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 14% 18%;           /* Subtle border line */
+    --input: 220 14% 18%;
+    --ring: 21 100% 50%;
+
+    --radius: 0.85rem;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--secondary));
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(22, 25, 34, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-nav {
+  background: rgba(15, 17, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Swiggy Style Veg / Non-Veg Indicator icons */
+.veg-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #10B981;
+  border-radius: 4px;
+  padding: 2px;
+}
+.veg-icon::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+}
+
+.non-veg-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #EF4444;
+  border-radius: 4px;
+  padding: 2px;
+}
+.non-veg-icon::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 7px solid #EF4444;
+}
+
+/* Leaflet map container fix & custom markers */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.85rem;
+  z-index: 10;
+  background: #0f1117 !important;
+}
+
+.custom-rider-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #FF5200;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(255, 82, 0, 0.7);
+  border: 3px solid #ffffff;
+  position: relative;
+  transition: all 0.5s ease-out;
+}
+
+.custom-rider-icon::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  background: rgba(255, 82, 0, 0.35);
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+.custom-restaurant-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #3B82F6;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+  border: 2px solid #ffffff;
+}
+
+.custom-customer-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #10B981;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+  border: 2px solid #ffffff;
+}
